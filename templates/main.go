@@ -19,7 +19,7 @@ func init() {
 	log.SetFlags(log.LUTC | log.LstdFlags | log.Lshortfile)
 
 	flag.SetEnvPrefix(envPrefix)
-	flag.BoolVar(&help, "help", false, "print help")
+	flag.BoolVarWithoutEnv(&help, "help", false, "print help")
 }
 
 func main() {
