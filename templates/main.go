@@ -1,9 +1,10 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"os"
+
+	"github.com/sascha-andres/flag"
 )
 
 var (
@@ -24,12 +25,12 @@ func main() {
 func run() error {
 	flag.Parse()
 
-	help() // will exit with 0 if -help is passed
+	displayHelp() // will exit with 0 if -help is passed
 
 	return nil
 }
 
-func help() {
+func displayHelp() {
 	if !help {
 		return
 	}

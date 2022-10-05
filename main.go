@@ -36,6 +36,7 @@ func (g *Goinit) Run() error {
 		func() error { return g.writeTemplate("main.go") },
 		func() error { return g.cmd("go", "mod", "init") },
 		func() error { return g.cmd("go", "get", "github.com/stretchr/testify") },
+		func() error { return g.cmd("go", "get", "github.com/sascha-andres/flag") },
 	}
 
 	if inRepo, err := g.insideRepo(); err != nil {
