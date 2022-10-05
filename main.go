@@ -3,20 +3,35 @@ package main
 import (
 	"bytes"
 	"embed"
-	"flag"
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
+
+	"github.com/sascha-andres/flag"
 )
 
 //go:embed templates/*
 var templates embed.FS
 
+const envPrefix string = "goinit"
+
+var (
+	help bool
+)
+
+func init() {
+	log.SetPrefix(fmt.Sprintf("[%s] ", envPrefix))
+	log.SetFlags(log.LUTC | log.LstdFlags | log.Lshortfile)
+
+	flag.SetEnvPrefix(envPrefix)
+	flag.BoolVar(&help, "help", false, "print help")
+}
+
 func main() {
 	if err := run(); err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-		os.Exit(1)
+		log.Fatalf("error running %s: %s", envPrefix, err)
 	}
 }
 

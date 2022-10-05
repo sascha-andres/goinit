@@ -2,23 +2,29 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/sascha-andres/flag"
 )
+
+const envPrefix string = "TOOL"
 
 var (
 	help bool
 )
 
 func init() {
+	log.SetPrefix(fmt.Sprintf("[%s] ", envPrefix))
+	log.SetFlags(log.LUTC | log.LstdFlags | log.Lshortfile)
+
+	flag.SetEnvPrefix(envPrefix)
 	flag.BoolVar(&help, "help", false, "print help")
 }
 
 func main() {
 	if err := run(); err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-		os.Exit(1)
+		log.Fatalf("error running %s: %s", envPrefix, err)
 	}
 }
 
